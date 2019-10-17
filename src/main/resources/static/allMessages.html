@@ -14,7 +14,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Messages</th>
+                        <th colspan="2">Messages</th>
                     </tr>
                     </thead>
 
@@ -38,7 +38,7 @@
 
                 // iterate the result then append into table
                 for (index in listMessages) {
-                    $("#all-messages").append("<tr><td>" + listMessages[index].text + "</td></tr>");
+                    $("#all-messages").append("<tr><td>" + listMessages[index].text + "</td><td>" + listMessages[index].created_time + "</td></tr>");
                 }
             });
         })

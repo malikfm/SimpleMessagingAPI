@@ -1,15 +1,26 @@
 package com.malik.SimpleMessagingAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MessageModel {
-    private int id;
+
+    @JsonProperty("name")
+    private String name;
     private String text;
 
-    public int getId() {
-        return id;
-    }
+    @JsonProperty("created_time")
+    private String createdTime;
 
-    public void setId(int id) {
-        this.id = id;
+    // define name and createdTime
+    public MessageModel() {
+        name = "Anonymous";
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ");
+        Date date = new Date();
+        createdTime = dateFormat.format(date);
     }
 
     public String getText() {

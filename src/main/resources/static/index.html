@@ -65,10 +65,11 @@
 
                 /*
                 subscribe to /topic/message
-                append each message into table
+                prepend each message into table
                 */
                 stompClient.subscribe("/topic/message", function(message) {
-                    $("#message-stream").append("<tr><td>" + JSON.parse(message.body).text + "</td></tr>");
+                    var message = JSON.parse(message.body);
+                    $("#message-stream").prepend("<tr><td><strong>" + message.name + ":</strong> " + message.text + "</td></tr>");
                 });
             });
 

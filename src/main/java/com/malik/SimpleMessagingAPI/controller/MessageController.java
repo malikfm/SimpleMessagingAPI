@@ -4,19 +4,14 @@ import com.malik.SimpleMessagingAPI.model.MessageModel;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.LinkedList;
 
 @RestController
 @RequestMapping("/message")
 public class MessageController {
-
-    // auto-increment id
-    private AtomicInteger atomicInteger = new AtomicInteger(0);
     private MessageModel message;
-    private List<MessageModel> listMessages = new ArrayList<>();
+    private LinkedList<MessageModel> listMessages = new LinkedList<>();
 
     /**
      * if a message is sent to /app/message then the streamMessage() method is called
@@ -42,9 +37,8 @@ public class MessageController {
     @PostMapping("")
     public MessageModel saveMessage(MessageModel messageParam) {
         message = new MessageModel();
-        message.setId(atomicInteger.getAndIncrement());
         message.setText(messageParam.getText());
-        listMessages.add(message);
+        listMessages.addFirst(message);
 
         return message;
     }

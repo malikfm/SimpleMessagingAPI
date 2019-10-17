@@ -5,7 +5,7 @@ Create API for:
 - Display message in real time. API should be long live connection to retrieve messages after send at realtime.
 
 ## Prerequisites
-- Spring Boot with dependencies: Spring Web, WebSocket
+- Spring Boot with dependencies: Spring Web and WebSocket
 - CSS Bootstrap
 - jQuery
 - SockJs Client

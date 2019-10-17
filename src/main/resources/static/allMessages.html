@@ -17,17 +17,26 @@
                         <th>Messages</th>
                     </tr>
                     </thead>
+
+                    <!-- all messages are displayed here -->
                     <tbody id="all-messages">
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    <!-- logic of the application -->
     <script>
         var stompClient = null;
 
+        // document ready function
         $(function() {
+
+            // get request to /message to get all messages
             $.get("/message", function(listMessages) {
+
+                // iterate the result then append into table
                 for (index in listMessages) {
                     $("#all-messages").append("<tr><td>" + listMessages[index].text + "</td></tr>");
                 }

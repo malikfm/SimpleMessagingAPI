@@ -42,7 +42,7 @@
                         </tr>
                     </thead>
 
-                    <!-- display messages in real time -->
+                    <!-- real time messages are displayed here -->
                     <tbody id="message-stream">
                     </tbody>
                 </table>
@@ -63,9 +63,12 @@
             // initiate the connection with the broker
             stompClient.connect({}, function(frame) {
 
-                // subscribe to /topic/message
+                /*
+                subscribe to /topic/message
+                append each message into table
+                */
                 stompClient.subscribe("/topic/message", function(message) {
-                    streamMessage(JSON.parse(message.body).text);
+                    $("#message-stream").append("<tr><td>" + JSON.parse(message.body).text + "</td></tr>");
                 });
             });
 
@@ -79,11 +82,6 @@
 
             $(".alert").hide();
         })
-
-        // append table row to display message
-        function streamMessage(text) {
-            $("#message-stream").append("<tr><td>" + text + "</td></tr>");
-        }
 
         /*
         post request to /message to save it then send to /app/message

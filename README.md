@@ -1,8 +1,8 @@
 # SimpleMessagingAPI
 Create API for:
 - Sending a message. Just send one parameter string for message. After sending should be get response.
-- Collect message that has been sent out API can get all previously sent messages.
-- Display message in real time. API should be long live connection to retrieve messages after send at realtime.
+- Collect messages that has been sent out API can get all previously sent messages.
+- Display messages in real time. API should be long live connection to retrieve messages after send at realtime.
 
 ## Prerequisites
 - Spring Boot with dependencies: Spring Web and WebSocket

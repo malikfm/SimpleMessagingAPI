@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Messaging API</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <a href="/" class="btn btn-primary pull-right">Back</a>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Messages</th>
+                    </tr>
+                    </thead>
+                    <tbody id="all-messages">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        var stompClient = null;
+
+        $(function() {
+            $.get("/message", function(listMessages) {
+                for (index in listMessages) {
+                    $("#all-messages").append("<tr><td>" + listMessages[index].text + "</td></tr>");
+                }
+            });
+        })
+    </script>
+</body>
+</html>

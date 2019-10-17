@@ -1,0 +1,14 @@
+body {
+    padding: 32px
+}
+
+form {
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    border-bottom: 1px dashed grey
+}
+
+th {
+    padding-top: 0 !important;
+    padding-bottom: 5px !important
+}

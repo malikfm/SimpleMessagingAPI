@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Messaging API</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 alert alert-warning" role="alert"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="inputMessage">Type a message</label>
+                        <textarea class="form-control" id="inputMessage" placeholder="Message" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="send">Send</button>
+                </form>
+                <a href="/allMessages.html">Show all messages</a>
+            </div>
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Messages Streaming</th>
+                        </tr>
+                    </thead>
+                    <tbody id="message-stream">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        var stompClient = null;
+
+        $(function() {
+            stompClient = Stomp.over(new SockJS("/message-websocket"));
+            stompClient.connect({}, function(frame) {
+                console.log("Connected: " + frame);
+                stompClient.subscribe("/topic/message", function(message) {
+                    streamMessage(JSON.parse(message.body).text);
+                });
+            });
+
+            $("form").submit(function(e) {
+                e.preventDefault();
+            });
+
+            $("#send").click(function() {
+                sendMessage();
+            });
+
+            $(".alert").hide();
+        })
+
+        function streamMessage(text) {
+            $("#message-stream").append("<tr><td>" + text + "</td></tr>");
+        }
+
+        function sendMessage() {
+            $.post("/message", {text: $("#inputMessage").val()}, function(message, status) {
+                stompClient.send("/app/message");
+                $("#inputMessage").val("");
+
+                $(".alert").html("<strong>Status:</strong> " + status + " <strong>Message:</strong> " + message.text).show(50, function(){
+                    window.setTimeout(function() {
+                        $(".alert").hide();
+                    }, 2000);
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -18,7 +18,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     /*
     configure the message broker, set the destination prefix
-    prefix /topic can be overriden via @SendTo annotation in streamMessage() method
+    prefix /topic can be overriden via @SendTo annotation in streamMessage() method in controller
     */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
